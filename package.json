@@ -1,0 +1,21 @@
+{
+  "name": "resume-builder",
+  "version": "1.0.0",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "bcryptjs": "^3.0.3",
+    "body-parser": "^1.20.3",
+    "connect-mongo": "^5.1.0",
+    "dotenv": "^17.2.3",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "express-session": "^1.18.2",
+    "mongoose": "^7.8.7",
+    "pdfkit": "^0.13.0"
+  }
+}

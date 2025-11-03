@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume Builder — Login / Register</title>
+  <link rel="stylesheet" href="public/css/style.css" />
+</head>
+<body>
+  <div class="container auth-container">
+    <h1>Resume Builder</h1>
+
+    <div class="auth-grid">
+      <!-- Login form -->
+      <div class="card">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="return handleLogin(event)">
+          <input type="email" id="loginEmail" placeholder="Email" required />
+          <input type="password" id="loginPassword" placeholder="Password" required />
+          <button type="submit">Login</button>
+        </form>
+        <p class="muted">Or create an account below</p>
+      </div>
+
+      <!-- Register form -->
+      <div class="card">
+        <h2>Register</h2>
+        <form id="registerForm" onsubmit="return handleRegister(event)">
+          <input type="email" id="regEmail" placeholder="Email" required />
+          <input type="password" id="regPassword" placeholder="Password (min 6)" minlength="6" required />
+          <button type="submit">Register</button>
+        </form>
+        <p class="muted">This static demo stores data in localStorage. Replace with server logic for real auth.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Simple client-side "auth" for demo only (localStorage)
+    function handleRegister(e){
+      e.preventDefault();
+      const email = document.getElementById('regEmail').value.trim();
+      const pwd = document.getElementById('regPassword').value;
+      if(!email || !pwd) return alert('Enter email & password');
+      // crude: store one user object
+      localStorage.setItem('rb_user', JSON.stringify({ email, password: pwd }));
+      alert('Registered locally. Click Login to continue.');
+      return false;
+    }
+
+    function handleLogin(e){
+      e.preventDefault();
+      const email = document.getElementById('loginEmail').value.trim();
+      const pwd = document.getElementById('loginPassword').value;
+      const u = JSON.parse(localStorage.getItem('rb_user') || 'null');
+      if(!u || u.email !== email || u.password !== pwd) {
+        return alert('Invalid credentials (local demo). Register first.');
+      }
+      // mark as "logged in"
+      localStorage.setItem('rb_session', u.email);
+      // redirect to resume builder
+      window.location.href = 'resume.html';
+      return false;
+    }
+  </script>
+</body>
+</html>

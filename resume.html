@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Resume Builder — Create Resume</title>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="topbar">
+      <h1>Build Your Resume</h1>
+      <div class="top-actions">
+        <button id="logoutBtn" class="small">Logout</button>
+      </div>
+    </header>
+
+    <div class="form-preview-container">
+      <!-- Form -->
+      <form id="resumeForm" class="form-column">
+        <label>Full Name</label>
+        <input type="text" id="name" name="name" placeholder="Your Name" required />
+
+        <label>Role / Title</label>
+        <input type="text" id="role" name="role" placeholder="Software Engineer" required />
+
+        <label>Professional Summary</label>
+        <textarea id="summary" name="summary" rows="4" placeholder="A short professional summary..."></textarea>
+
+        <label>Skills (comma separated)</label>
+        <input type="text" id="skills" name="skills" placeholder="HTML, CSS, JavaScript" />
+
+        <label>Education (comma separated)</label>
+        <input type="text" id="education" name="education" placeholder="B.Tech - XYZ University (2024)" />
+
+        <label>Projects (comma separated)</label>
+        <input type="text" id="projects" name="projects" placeholder="Project 1, Project 2, Project 3" />
+
+        <label>Experience (comma separated)</label>
+        <input type="text" id="experience" name="experience" placeholder="Job - Company - Duration" />
+
+        <label>Additional Information (comma separated)</label>
+        <input type="text" id="additional" name="additional" placeholder="Certifications, Languages, Hobbies" />
+
+        <div class="form-actions">
+          <button type="button" id="saveBtn">Save (local)</button>
+          <button type="button" id="downloadBtn">Download PDF</button>
+        </div>
+      </form>
+
+      <!-- Live Preview -->
+      <aside class="preview-column">
+        <div class="resume-preview" id="resumePreview">
+          <h1 id="previewName">Your Name</h1>
+          <h3 id="previewRole">Your Role</h3>
+          <p id="previewSummary">Professional summary will appear here...</p>
+
+          <section>
+            <h4>Skills</h4>
+            <ul id="previewSkills"></ul>
+          </section>
+
+          <section>
+            <h4>Education</h4>
+            <ul id="previewEducation"></ul>
+          </section>
+
+          <section>
+            <h4>Projects</h4>
+            <ul id="previewProjects"></ul>
+          </section>
+
+          <section>
+            <h4>Experience</h4>
+            <ul id="previewExperience"></ul>
+          </section>
+
+          <section>
+            <h4>Additional Information</h4>
+            <ul id="previewAdditional"></ul>
+          </section>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <script src="/js/script.js"></script>
+  <!-- jsPDF library for client-side PDF download -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</body>
+</html>

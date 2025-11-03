@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Resume</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Create Resume</h2>
+
+    <!-- 🌈 Wrapper for Form + Preview (side-by-side layout) -->
+    <div class="form-preview-container">
+
+      <!-- 📝 LEFT SIDE: Form -->
+      <div class="form-column">
+        <form action="/generate" method="POST" id="resumeForm">
+          <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" id="name" value="<%= resume ? resume.name : '' %>" required>
+          </div>
+
+          <div class="form-group">
+            <label>Role</label>
+            <input type="text" name="role" id="role" value="<%= resume ? resume.role : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label>Summary</label>
+            <textarea name="summary" id="summary"><%= resume ? resume.summary : '' %></textarea>
+          </div>
+
+          <div class="form-group">
+            <label>Skills (comma separated)</label>
+            <input type="text" name="skills" id="skills" value="<%= resume ? resume.skills.join(', ') : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label>Education (comma separated)</label>
+            <input type="text" name="education" id="education" value="<%= resume ? resume.education.join(', ') : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label>Projects (comma separated)</label>
+            <input type="text" name="projects" id="projects" value="<%= resume ? resume.projects.join(', ') : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label>Experience (comma separated)</label>
+            <input type="text" name="experience" id="experience" value="<%= resume ? resume.experience.join(', ') : '' %>">
+          </div>
+
+          <div class="form-group">
+            <label>Additional Information (comma separated)</label>
+            <input type="text" name="additional" id="additional" value="<%= resume ? resume.additional.join(', ') : '' %>">
+          </div>
+
+          <div class="form-actions">
+            <button type="button" id="downloadBtn" class="btn">Download PDF</button>
+            <button type="button" id="saveBtn" class="btn">Save</button>
+            <a href="/logout"><button type="button" id="logoutBtn" class="btn">Logout</button></a>
+          </div>
+        </form>
+      </div>
+
+      <!-- 💎 RIGHT SIDE: Preview -->
+      <div class="preview-column">
+        <div class="resume-preview">
+          <h1 id="previewName">Your Name</h1>
+          <h3 id="previewRole">Your Role</h3>
+          <p id="previewSummary">Professional summary...</p>
+
+          <h4>Skills</h4>
+          <ul id="previewSkills"></ul>
+
+          <h4>Education</h4>
+          <ul id="previewEducation"></ul>
+
+          <h4>Projects</h4>
+          <ul id="previewProjects"></ul>
+
+          <h4>Experience</h4>
+          <ul id="previewExperience"></ul>
+
+          <h4>Additional Information</h4>
+          <ul id="previewAdditional"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 🔮 Live Preview Script -->
+  <script>
+    const updatePreview = () => {
+      document.getElementById("previewName").innerText = document.getElementById("name").value || "Your Name";
+      document.getElementById("previewRole").innerText = document.getElementById("role").value || "Your Role";
+      document.getElementById("previewSummary").innerText = document.getElementById("summary").value || "Professional summary...";
+
+      const skills = document.getElementById("skills").value.split(',').filter(s => s.trim() !== '');
+      document.getElementById("previewSkills").innerHTML = skills.map(s => `<li>${s.trim()}</li>`).join('');
+
+      const education = document.getElementById("education").value.split(',').filter(s => s.trim() !== '');
+      document.getElementById("previewEducation").innerHTML = education.map(s => `<li>${s.trim()}</li>`).join('');
+
+      const projects = document.getElementById("projects").value.split(',').filter(s => s.trim() !== '');
+      document.getElementById("previewProjects").innerHTML = projects.map(s => `<li>${s.trim()}</li>`).join('');
+
+      const experience = document.getElementById("experience").value.split(',').filter(s => s.trim() !== '');
+      document.getElementById("previewExperience").innerHTML = experience.map(s => `<li>${s.trim()}</li>`).join('');
+
+      const additional = document.getElementById("additional").value.split(',').filter(s => s.trim() !== '');
+      document.getElementById("previewAdditional").innerHTML = additional.map(s => `<li>${s.trim()}</li>`).join('');
+    };
+
+    document.querySelectorAll("#resumeForm input, #resumeForm textarea").forEach(el => {
+      el.addEventListener("input", updatePreview);
+    });
+
+    updatePreview(); // Initialize preview on load
+  </script>
+<script>
+// ✅ Prevent Enter key from submitting form except in textarea
+document.getElementById("resumeForm").addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && e.target.tagName !== "TEXTAREA") {
+    e.preventDefault();
+  }
+});
+
+// ✅ Make "Download PDF" button submit the form manually
+document.getElementById("downloadBtn").addEventListener("click", function () {
+  document.getElementById("resumeForm").submit();
+});
+</script>
+
+</body>
+</html>
